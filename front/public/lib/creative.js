@@ -2,7 +2,7 @@ export default class Creative {
   constructor() {}
   ready() {
     const loader = window.document.getElementById('loading');
-    window.document.body.removeChild(loader);
+    loader.parentNode.removeChild(loader);
   }
   link(href) {
     return new Promise((resolve, reject) => {
