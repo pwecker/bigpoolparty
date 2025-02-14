@@ -1,8 +1,15 @@
 export default class Creative {
-  constructor() {}
-  ready() {
-    const loader = window.document.getElementById('loading');
-    loader.parentNode.removeChild(loader);
+  constructor() {
+    this.depends = null;
+  }
+  
+  set css(styles) {
+    styles.forEach(style => {
+      const key = style[0];
+      let value = style[1];
+      value = key.indexOf('-img') >= 0 ? 'url(' + value + ')' : value;
+      document.documentElement.style.setProperty('--' + key, value);
+    });
   }
   link(href) {
     return new Promise((resolve, reject) => {
@@ -15,6 +22,9 @@ export default class Creative {
   }
   script(href) {
     return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[src="${href}"]`)) {
+        return resolve();
+      }
       const script = document.createElement('SCRIPT');
       script.src = href;
       script.type = 'text/javascript';
@@ -23,14 +33,7 @@ export default class Creative {
       document.head.appendChild(script);
     });
   }
-  set css(styles) {
-    styles.forEach(style => {
-      const key = style[0];
-      let value = style[1];
-      value = key.indexOf('-img') >= 0 ? 'url(' + value + ')' : value;
-      document.documentElement.style.setProperty('--' + key, value);
-    });
-  }
+
   preload(imgs) {
     let i = 0;
     imgs.forEach((src) => {
@@ -44,6 +47,24 @@ export default class Creative {
       img.src = src;
     })
   }
+
+  async dependencies(deps) {
+    const promises = [];
+    for (const dep of deps) {
+      try {
+        for (const [key, value] of Object.entries(dep)) {
+          if (key === 'css') {
+            promises.push(this.link(value));
+          } else {
+            promises.push(this.script(value));
+          }
+        }
+      } catch(e) {}
+    }
+
+    return Promise.all(promises);
+  }
+
   async load(creative) {
     let imgs = [];
     let deps = [];
@@ -69,18 +90,9 @@ export default class Creative {
 
     this.css = css;
     this.preload(imgs);
-    for (const dep of deps) {
-      try {
-        for (const [key, value] of Object.entries(dep)) {
-          if (key === 'css') {
-            await this.link(value);
-          } else {
-            await this.script(value)
-          }
-        }
-      } catch(e) {}
-    }
+    return this.dependencies(deps);
   }
+
   async init(type) {
     try {
       const { API_URL } = await import('/src/config.js');
@@ -88,8 +100,12 @@ export default class Creative {
       if (response.ok) {
         const json = await response.json();
         const r = Math.floor(Math.random() * json.data.length);
-        this.load(json.data[r]);
+        this.depends = this.load(json.data[r]);
       } else {}
     } catch(e) {}
+  }
+  ready() {
+    const loader = window.document.getElementById('loading');
+    loader.parentNode.removeChild(loader);
   }
 }

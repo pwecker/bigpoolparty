@@ -5,24 +5,27 @@
 
   const type = types.shift();
   const { default: Creative } = await import('/lib/creative.js');
+  const base = new Creative();
+  await base.init(type);
+  await base.depends;
   let Extended = Creative;
   const mod = await import(`/lib/${type.toLowerCase()}.js`);
   const extendFnc = mod[`extend${type}`];
+
   if (extendFnc) {
-  Extended = extendFnc(Creative);
-  for (const ext of types) {
-    try{
-    const extMod = await import(`/lib/${ext.toLowerCase()}.js`);
-    const extModFnc = extMod[`extend${ext}`];
-    if (extModFnc) {
-      Extended = extModFnc(Extended);
+    Extended = extendFnc(Creative);
+    for (const ext of types) {
+      try{
+        const extMod = await import(`/lib/${ext.toLowerCase()}.js`);
+        const extModFnc = extMod[`extend${ext}`];
+        if (extModFnc) {
+          Extended = extModFnc(Extended);
+        }
+      }catch(e){}
     }
-    }catch(e){}
-  }
   }
 
-  const creative = new Extended();
-  creative.init(type);
+  return new Extended();
 })(document.currentScript.getAttribute('data-type').split('-'));
 
 function jsonToDom(jsonArray, parentElement = document.body) {
