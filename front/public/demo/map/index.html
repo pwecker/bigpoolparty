@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Map Guy</title>
+  <style>
+    html,body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    } 
+    .lds-ripple,
+    .lds-ripple div {
+      box-sizing: border-box;
+    }
+    .lds-ripple {
+      display: inline-block;
+      position: relative;
+      width: 80px;
+      height: 80px;
+    }
+    .lds-ripple div {
+      position: absolute;
+      border: 4px solid rgba(230,230,230);
+      opacity: 1;
+      border-radius: 50%;
+      animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+    .lds-ripple div:nth-child(2) {
+      animation-delay: -0.5s;
+    }
+    @keyframes lds-ripple {
+      0% {
+        top: 36px;
+        left: 36px;
+        width: 8px;
+        height: 8px;
+        opacity: 0;
+      }
+      4.9% {
+        top: 36px;
+        left: 36px;
+        width: 8px;
+        height: 8px;
+        opacity: 0;
+      }
+      5% {
+        top: 36px;
+        left: 36px;
+        width: 8px;
+        height: 8px;
+        opacity: 1;
+      }
+      100% {
+        top: 0;
+        left: 0;
+        width: 80px;
+        height: 80px;
+        opacity: 0;
+      }
+    }
+    body:has(.lds-ripple) .wrapper{
+      display: none;
+    }
+    .wrapper {
+      width: 100%;
+      height: 100%;
+      display: flex;
+    }
+    .brand {
+      background: var(--color);
+      width:100%;height:100%;
+      animation: shrink 1s ease-in-out 2s forwards;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow:hidden;
+    }
+    .brand .img {
+      position:absolute;
+      z-index: 1;
+      mix-blend-mode: darken;
+      width: 100%;
+      height: 100%;
+      background-size: contain;
+      background-repeat:no-repeat;
+      background-position: center;
+      background-image:var(--brand-img);
+    }
+    .brand .rays {
+      background: url(/public/img/rays.png) 0 0 no-repeat; 
+      position: absolute; 
+      z-inex:0;
+      width: 490px; 
+      height: 490px; 
+      mix-blend-mode: color-dodge;
+      
+      /* microsoft ie */
+      animation-name: spin; 
+      animation-duration: 40000ms; /* 40 seconds */
+      animation-iteration-count: infinite; 
+      animation-timing-function: linear;
+    }
+    .map {
+      background-color: #999;
+      flex-grow: 1;
+    }
+    @keyframes shrink {
+      to {
+        width: 300px;
+      }
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @media (max-width: 969px) {
+      .wrapper {
+        flex-direction: column;
+      }
+      .brand {
+        justify-content: center;
+      }
+      @keyframes shrink {
+        to {
+          height: 69px;
+        }
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="loading" class="lds-ripple"><div></div><div></div></div>
+<div class="wrapper">
+  <div class="map"></div>
+  <div class="brand">
+    <div class="rays"></div>
+    <div class="img"></div>
+  </div>
+</div>
+<script>
+  async function extendCreative(type) {
+    const { default: Creative } = await import('/public/lib/creative.js');
+    let Extended = Creative;
+    const module = await import(`/public/lib/${type.toLowerCase()}.js`);
+    const extendFnc = module[`extend${type}`];
+    Extended = extendFnc(Creative);
+    return new Extended();
+  }
+
+  extendCreative('Map').then(creative => {creative.init()})
+</script>
+</body>
+</html>
