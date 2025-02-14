@@ -1,5 +1,5 @@
 <template>
-  <div class="h-dvh w-dvw">
+  <div class="h-dvh w-dvw flex items-center justify-center">
     <RouterView />
   </div>
 </template>
@@ -7,7 +7,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 </script>
-
-<style scoped>
+<style>
   @import "@/App.css"
 </style>
