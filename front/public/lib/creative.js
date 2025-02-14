@@ -81,10 +81,10 @@ export default class Creative {
       } catch(e) {}
     }
   }
-  async init() {
+  async init(type) {
     try {
       const { API_URL } = await import('/src/config.js');
-      const response = await fetch(`${API_URL}/api/creatives?filters[type]=map`);
+      const response = await fetch(`${API_URL}/api/creatives?filters[type]=${type}`);
       if (response.ok) {
         const json = await response.json();
         const r = Math.floor(Math.random() * json.data.length);

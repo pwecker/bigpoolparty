@@ -1,4 +1,4 @@
-export function extendMap(Creative) {
+export function extendmap(Creative) {
 	return class extends Creative {
 		constructor() {
 			super();

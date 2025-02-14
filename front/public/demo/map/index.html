@@ -142,17 +142,6 @@
     <div class="img"></div>
   </div>
 </div>
-<script>
-  async function extendCreative(type) {
-    const { default: Creative } = await import('/public/lib/creative.js');
-    let Extended = Creative;
-    const module = await import(`/public/lib/${type.toLowerCase()}.js`);
-    const extendFnc = module[`extend${type}`];
-    Extended = extendFnc(Creative);
-    return new Extended();
-  }
-
-  extendCreative('Map').then(creative => {creative.init()})
-</script>
+<script src="/public/lib/deploy.js" data-type="map"></script>
 </body>
 </html>
