@@ -1,0 +1,1 @@
+export const API_URL = import.meta.env.VITE_APP_API_URL || "http://192.168.1.4:1337";
