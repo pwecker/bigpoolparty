@@ -71,6 +71,7 @@
     width: 100%;
     height: 100%;
     display: flex;
+    justify-content: flex-end;
   }
   .brand {
     background: var(--color);
@@ -108,6 +109,11 @@
   .map {
     background-color: #999;
     flex-grow: 1;
+    min-width: calc(100% - 300px);
+    min-height: 100%;
+    position:absolute;
+    left: 0px;
+    z-index:0;
   }
   @keyframes shrink {
     to {
@@ -119,6 +125,12 @@
     to { transform: rotate(360deg); }
   }
   @media (max-width: 969px) {
+    .map {
+      top:0px;
+      min-width: 100%;
+      min-height: unset;
+      height: calc(100% - 69px);
+    }
     .wrapper {
       flex-direction: column;
     }
@@ -134,7 +146,7 @@
 </style>
 <div id="loading" class="lds-ripple"><div></div><div></div></div>
 <div class="wrapper">
-  <div class="map"></div>
+  <div class="map" id="map"></div>
   <div class="brand">
     <div class="rays"></div>
     <div class="img"></div>
