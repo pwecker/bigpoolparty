@@ -61,7 +61,6 @@ function domToJson(dom) {
 
 function captureInlineStyles(dom) {
   const styles = [];
-
   dom.querySelectorAll('style[data-include]').forEach(styleElement => {
     styles.push(styleElement.innerHTML);
   });
