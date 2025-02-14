@@ -7,6 +7,8 @@
   </div>
 </template>
 <script>
+// import pako from 'pako';
+
 function domToJson(dom) {
   const json = [];
   const styles = captureInlineStyles(dom);
@@ -75,6 +77,28 @@ function getAttributes(el) {
   return attributes;
 }
 
+function min(str) {
+	return str
+	  .replace(/\s+/g, ' ')
+	  .replace(/>\s+</g, '><')
+	  .replace(/\s*{\s*/g, '{')
+	  .replace(/\s*}\s*/g, '}')
+	  .replace(/\s*;\s*/g, ';')
+	  .replace(/\s*:\s*/g, ':')
+	  .replace(/;\}/g, '}');
+}
+
+function dl(str) {
+	// const comp = pako.gzip(str);
+	const blob = new Blob([str], {type:'text/plain'});
+	const a = document.createElement('a');
+	a.href = URL.createObjectURL(blob);
+	a.download = 'tag.' + (+new Date()) + '.txt';
+	document.body.appendChild(a);
+	a.click();
+	document.body.removeChild(a);
+}
+
 export default {
 	name : 'Page',
 	methods: {
@@ -87,7 +111,7 @@ export default {
 			const string = JSON.stringify(json, null, 2);
 			const prefix = '<div id="loading" class="lds-ripple"><div></div><div></div></div><script>window.injectedJson=';
     const appendix = '</' + 'script><' + 'script src="/lib/deploy.js" data-type="' + type + '"></' + 'script>';
-    console.log(prefix + string + appendix)
+    dl(min(prefix + string + appendix))
 		}
 	}
 }
