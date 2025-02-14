@@ -59,7 +59,7 @@ export default class Creative {
           }));
         })
       } else {
-        if (creative.params[k].split(/\.jpg|\.png/).length > 1) {
+        if (creative.params[k].split(/\.jpg|\.png|\.webp/).length > 1) {
           imgs.push(creative.params[k]);
         }
         
