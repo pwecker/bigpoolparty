@@ -2,8 +2,8 @@
 	<!-- <Device></Device> -->
 	<div class="h-full w-full flex flex-col gap-y-5 justify-center items-center">
 		<div style="cursor:pointer" @click="_click">Tag</div>
-		<iframe width="300" height="250" src="/public/demo/map/index.html"></iframe>
-	  <iframe width="970" height="250" src="/public/demo/map/index.html"></iframe>
+		<iframe width="300" height="250" src="/demo/map/test.html"></iframe>
+	  <iframe width="970" height="250" src="/demo/map/test.html"></iframe>
   </div>
 </template>
 <script>
@@ -35,12 +35,14 @@ function domToJson(dom) {
       elementJson.styles = inlineStyles;
     }
 
-    Array.from(el.children).forEach(child => {
-      const childJson = processElement(child);
-      if (childJson) {
-        elementJson.children.push(childJson);
-      }
-    });
+    if (el.getAttribute('data-dynamic') === null) {
+      Array.from(el.children).forEach(child => {
+        const childJson = processElement(child);
+        if (childJson) {
+          elementJson.children.push(childJson);
+        }
+      });
+    }
 
     return elementJson;
   }
