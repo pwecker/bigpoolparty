@@ -36,7 +36,8 @@ function jsonToDom(jsonArray, parentElement = document.body) {
 
   jsonArray.forEach(json => {
     if (json.tag === "style" && json.text) {
-      const styleElement = document.createElement("style");
+      const styleElement = document.createElement('style');
+      styleElement.setAttribute('data-dynamic','');
       styleElement.textContent = json.text.join("\n");
       document.head.appendChild(styleElement);
     }
@@ -52,7 +53,7 @@ function jsonToDom(jsonArray, parentElement = document.body) {
       const newElement = createElementFromJson(json);
 
       if (json.styles) {
-        newElement.setAttribute("style", json.styles);
+        newElement.setAttribute('style', json.styles);
       }
 
       if (newElement && !parentElement.contains(newElement) && parentElement !== newElement) {
@@ -70,6 +71,7 @@ function createElementFromJson(json) {
   if (!json || !json.tag) return null;
 
   const element = document.createElement(json.tag);
+  element.setAttribute('data-dynamic','');
 
   if (json.attributes) {
     for (let [key, value] of Object.entries(json.attributes)) {
