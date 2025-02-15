@@ -1,6 +1,11 @@
 export default class Creative {
   constructor() {
     this.depends = null;
+    this.params = {};
+  }
+
+  getParams(key) {
+    return this.params[key];
   }
   
   set css(styles) {
@@ -69,6 +74,7 @@ export default class Creative {
     let imgs = [];
     let deps = [];
     let css = [];
+    let params = {};
     for (var k in creative.params) {
       if (k === 'dep') {
         creative.params[k].forEach(dep => {
@@ -79,15 +85,22 @@ export default class Creative {
             }
           }));
         })
-      } else {
+      } else if (typeof creative.params[k] === 'string') {
         if (creative.params[k].split(/\.jpg|\.png|\.webp/).length > 1) {
           imgs.push(creative.params[k]);
         }
         
         css.push([k, creative.params[k]]);
+      } else {
+        //todo: prob model all extract off this
+        const regex = /"(https?:\/\/[^"]+?\.(?:png|webp|jpg))"|"([^"]+?\.(?:png|webp|jpg))"/gi;
+        const matches = new Set([...JSON.stringify(creative.params[k]).matchAll(regex)].map(m => m[1] || m[2]));
+        imgs = imgs.concat([...matches]);
+        params[k] = creative.params[k];
       }
     }
-
+ 
+    this.params = params;
     this.css = css;
     this.preload(imgs);
     return this.dependencies(deps);
@@ -101,6 +114,7 @@ export default class Creative {
         const json = await response.json();
         const r = Math.floor(Math.random() * json.data.length);
         this.depends = this.load(json.data[r]);
+        return json.data[r];
       } else {}
     } catch(e) {}
   }

@@ -13,7 +13,7 @@
   const extendFnc = mod[`extend${type}`];
 
   if (extendFnc) {
-    Extended = extendFnc(Creative);
+    Extended = extendFnc(Creative, base.params[type] || {});
     for (const ext of types) {
       try{
         const extMod = await import(`/lib/${ext.toLowerCase()}.js`);
