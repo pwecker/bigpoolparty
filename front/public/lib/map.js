@@ -29,11 +29,22 @@ export function extendmap(Creative, params) {
 			const starIcon = L.icon({
 		    iconUrl: param.icon,
 		    iconSize: [32, 32],
-		    iconAnchor: [16, 16],
+		    iconAnchor: [16, 37],
 		    popupAnchor: [0, -20]      
 			});
 
-			const marker = L.marker(param.coords, { icon: starIcon }).addTo(this.map);
+			let latLng;
+
+			if (param.coords) {
+				latLng = param.coords
+			} else if (param.pos) {
+				const {lat, lng} = this.map.containerPointToLatLng([param.pos.x, param.pos.y]);
+				latLng = [lat, lng];
+			}
+
+			// console.log(param.coords,param.pos, latLng)
+
+			const marker = L.marker(latLng, { icon: starIcon }).addTo(this.map);
 
 			const tooltip = L.tooltip({
 	      permanent: false,
@@ -59,7 +70,7 @@ export function extendmap(Creative, params) {
 
 		fitMap() {
 			const bounds = L.latLngBounds(this.markers.map(marker => marker.getLatLng()));
-			this.map.fitBounds(bounds, {padding: [20, 20]})
+			this.map.fitBounds(bounds, {padding: [50, 40]})
 		}
 
 		debounce(fnc, delay) {
@@ -83,12 +94,11 @@ export function extendmap(Creative, params) {
         renderer: L.canvas()
 	    });
 
-	    const image = '/img/map.png';
+	    this.map.setView([40.776676, -73.971321], 10);
 
-	    const imageBounds = [
-        [61.7731, -27.7734],
-        [1.7575, -165.5859]
-	    ];
+	    const image = params['map-img'];
+
+	    const imageBounds = params.bounds;
 
 	    L.imageOverlay(image, imageBounds, {
         opacity: 1,
