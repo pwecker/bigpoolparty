@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "vite build; aws s3 --prof bigpoolparty.com sync ./dist s3://bigpoolparty.com --delete; aws cloudfront --prof bigpoolparty.com create-invalidation --distribution-id E2WYA8TXIKNPOE --paths \"/*\"",
     "preview": "vite preview",
     "lint": "eslint . --fix"
   },
