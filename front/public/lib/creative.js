@@ -109,7 +109,7 @@ export default class Creative {
 
   async init(type) {
     try {
-      const response = await fetch(`https://bigpoolparty-production.up.railway.app/api/creatives?filters[type]=${type}`);
+      const response = await fetch(`http://localhost:1337/api/creatives?filters[type]=${type}`);
       if (response.ok) {
         const json = await response.json();
         const r = Math.floor(Math.random() * json.data.length);
