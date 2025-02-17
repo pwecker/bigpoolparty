@@ -11,7 +11,6 @@ export default factories.createCoreController('api::creative.creative', ({ strap
     let jsonStr = JSON.stringify(data);
 
     jsonStr = jsonStr.replace(/"\/(img|dep|lib)\/(.*?)"/g, `"${cdn}/$1/$2"`);
-    console.log(jsonStr)
     return { data: JSON.parse(jsonStr), meta};
   }
 }));
