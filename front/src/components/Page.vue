@@ -1,10 +1,21 @@
 <template>
-	<!-- <Device></Device> -->
-	<div class="h-full w-full flex flex-col gap-y-5 justify-center items-center">
+	<!-- <Device></Device>  -->
+	<div class="h-full w-full flex-col flex gap-y-5 justify-center items-center">
 		<div style="cursor:pointer" @click="_click">Tag</div>
-		<iframe width="300" height="250" src="/demo/map/index.html"></iframe>
-	  <iframe width="970" height="250" src="/demo/map/index.html"></iframe>
+		<iframe width="300" height="250" src="/demo/map/test.html"></iframe>
+	  <iframe width="970" height="250" src="/demo/map/test.html"></iframe>
   </div>
+ 
+  <!-- <div class="h-dvh w-full bg-cyan-100 flex flex-col items-center">
+    <div class="w-full grow-1">
+      <div class="w-full h-[250px] bg-rose-100"></div>
+      <div class="w-full grow-1 flex overflow-y-hidden p-3 gap-3 flex-col sm:flex-row">
+        <div class="h-[3em] grow-1 bg-red-100"></div>
+        <div class="h-[3em] w-[300px] bg-blue-100"></div>
+      </div>
+    </div>
+    <div class="w-full h-[3em] bg-rose-300"></div>
+  </div> -->
 </template>
 <script>
 // import pako from 'pako';

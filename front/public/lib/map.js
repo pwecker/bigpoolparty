@@ -29,8 +29,8 @@ export function extendmap(Creative, params) {
 			const starIcon = L.icon({
 		    iconUrl: param.icon,
 		    iconSize: [32, 32],
-		    iconAnchor: [16, 37],
-		    popupAnchor: [0, -20]      
+		    iconAnchor: [16, 18],
+		    // popupAnchor: [0, -20]      
 			});
 
 			let latLng;
@@ -42,14 +42,12 @@ export function extendmap(Creative, params) {
 				latLng = [lat, lng];
 			}
 
-			// console.log(param.coords,param.pos, latLng)
-
 			const marker = L.marker(latLng, { icon: starIcon }).addTo(this.map);
 
 			const tooltip = L.tooltip({
 	      permanent: false,
 	      opacity: 0.9,
-	      offset: [0, -20]
+	      offset: [16, -1]
 	    }).setContent(param.name);
 
 	    marker.on('mouseover', function (e) {

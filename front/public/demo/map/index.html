@@ -13,6 +13,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: var(--color);
   } 
   .lds-ripple,
   .lds-ripple div {
@@ -107,7 +108,7 @@
     animation-timing-function: linear;
   }
   .map {
-    background-color: #999;
+    background: var(--color);
     flex-grow: 1;
     min-width: calc(100% - 300px);
     min-height: 100%;
@@ -125,6 +126,9 @@
     to { transform: rotate(360deg); }
   }
   @media (min-width: 970px) {
+    .wrapper {
+      max-width: 1200px;
+    }
     .map {
       min-width: unset;
       width: calc((100% * 0.690721649484536) + 5px);
@@ -135,7 +139,17 @@
       }
     }
   }
-  @media (max-width: 969px) {
+  @media (max-width: 969px) and (orientation: landscape) {
+    .map {
+      width: 70%;
+    }
+    @keyframes shrink {
+      to {
+        width: 30%;
+      }
+    }
+  }
+  @media (max-width: 969px) and (orientation: portrait) {
     .map {
       top:0px;
       min-width: 100%;
@@ -148,7 +162,7 @@
       justify-content: center;
     }
   }
-  @media (max-width: 969px) and (min-height:600px) {
+  @media (max-width: 969px) and (min-height:600px) and (orientation: portrait) {
     .map {
       height: calc(100% - 300px);
     }
@@ -158,13 +172,19 @@
       }
     }
   }
-  @media (max-width: 969px) and (max-height: 599px) {
+  @media (max-width: 669px) and (max-height: 599px) {
     .map {
-      height: calc(100% - 69px);
+      top:0px;
+      height: 70%;
+      min-height: unset;
+      width: 100%;
+    }
+    .wrapper {
+      flex-direction: column;
     }
     @keyframes shrink {
       to {
-        height: 69px;
+        height: 30%;
       }
     }
   }
@@ -194,6 +214,6 @@
 
 // ]
 </script>
-<script src="/lib/deploy.js" data-type="map-sled"></script>
+<script src="/lib/deploy.js" data-type="map"></script>
 </body>
 </html>
