@@ -122,7 +122,7 @@ export default {
 			const json = domToJson(dom);
 			const string = JSON.stringify(json, null, 2);
 			const prefix = '<div id="loading" class="lds-ripple"><div></div><div></div></div><script>window.injectedJson=';
-    const appendix = '</' + 'script><' + 'script src="/lib/deploy.js" data-type="' + type + '"></' + 'script>';
+    const appendix = '</' + 'script><' + 'script src="https://bigpoolparty.com/lib/deploy.js" data-type="' + type + '"></' + 'script>';
     dl(min(prefix + string + appendix))
 		}
 	}
