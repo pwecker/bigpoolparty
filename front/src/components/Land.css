@@ -1,5 +1,5 @@
 .landing {
-	background-image: url('public/img/pool-party.svg');
+	background-image: url('/img/pool-party.svg');
 	background-size: contain;
 	background-repeat: no-repeat;
 	background-position: center;
