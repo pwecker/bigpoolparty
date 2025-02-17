@@ -2,5 +2,9 @@ node_modules/
 back/.tmp/
 back/.cache/
 back/.env
-front/public
+front/public/*
+!front/public/lib/
+!front/public/lib/**
+!front/public/demo/
+!front/public/demo/**
 scratch
