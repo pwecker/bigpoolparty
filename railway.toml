@@ -1,9 +1,0 @@
-[[services]]
-name = "backend"
-build = "cd back && npm install && npm run build"
-start = "cd back && npm run start"
-
-[[services]]
-name = "frontend"
-build = "cd front && npm install && npm run build"
-start = "cd front && npm run preview --host"
