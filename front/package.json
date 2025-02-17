@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build; aws s3 --prof bigpoolparty.com sync ./dist s3://bigpoolparty.com --delete; aws cloudfront --prof bigpoolparty.com create-invalidation --distribution-id E2WYA8TXIKNPOE --paths \"/*\"",
+    "build": "vite build && node script/replace-paths.js && aws s3 --profile bigpoolparty.com sync ./dist s3://bigpoolparty.com --delete && aws cloudfront --profile bigpoolparty.com create-invalidation --distribution-id E2WYA8TXIKNPOE --paths \"/*\"",
     "preview": "vite preview",
     "lint": "eslint . --fix"
   },
@@ -21,6 +21,7 @@
     "@vitejs/plugin-vue": "^5.2.1",
     "eslint": "^9.18.0",
     "eslint-plugin-vue": "^9.32.0",
+    "replace-in-file": "^8.3.0",
     "vite": "^6.0.11",
     "vite-plugin-vue-devtools": "^7.7.1"
   }
