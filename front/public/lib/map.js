@@ -35,7 +35,7 @@ export function extendmap(Creative, params) {
 
 			L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {})
 			.addTo(this.map);
-			this.map.setView([40.776676, -73.971321], 13);
+			this.map.setView(params.center, 13);
 		}
 
 		createMarker(param) {
@@ -106,12 +106,10 @@ export function extendmap(Creative, params) {
         renderer: L.canvas()
 	    });
 
-	    this.map.setView([40.776676, -73.971321], 10);
+	    this.map.setView(params.center, 10);
 
-	    const image = params['map-img'];
-
+	    const image = params.map_img;
 	    const imageBounds = params.bounds;
-
 	    L.imageOverlay(image, imageBounds, {
         opacity: 1,
         interactive: false
