@@ -112,9 +112,9 @@ export default class Creative {
       const response = await fetch(`http://localhost:1337/api/creatives?filters[type]=${type}`);
       if (response.ok) {
         const json = await response.json();
-        const r = Math.floor(Math.random() * json.data.length);
-        this.depends = this.load(json.data[r]);
-        return json.data[r];
+        // const r = Math.floor(Math.random() * json.data.length);
+        this.depends = this.load(json.data[0]);
+        return json.data[0];
       } else {}
     } catch(e) {}
   }
