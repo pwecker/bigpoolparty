@@ -1,6 +1,6 @@
 <template>
 	<div class="w-full flex-col flex gap-y-5 justify-center items-center">
-    <div @click="_tag" class="fixed top-0 left-[5em] bg-zinc-100 z-1 pr-2 pl-2 rounded-lg m-4 border-1 border-solid cursor-pointer hover:bg-white">Download Tag</div>
+    <div @click="_tag" class="fixed top-0 left-[0] bg-zinc-100 z-1 pr-2 pl-2 rounded-lg m-4 border-1 border-solid cursor-pointer hover:bg-white">Download Tag</div>
     <ul class="w-[100vw] flex flex-col items-center gap-8 justify-center">
       <li v-for="[iab] in iabs.map(Object.entries)" :key="iab[0]" :class="iab[0] + ' border-2 border-solid border-zinc-400 rounded-lg relative'">
       <div class="absolute bg-white top-[-1em] right-2 flex justify-end pr-2 pl-2 text-zinc-800">
