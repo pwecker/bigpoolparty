@@ -62,6 +62,8 @@ export function extendmap(Creative, params) {
 	      offset: [16, -1]
 	    }).setContent(param.name);
 
+	    marker._icon.style.filter = 'drop-shadow(0 0 0.75rem rgb(58,58,58))'
+
 	    marker.on('mouseover', function (e) {
         marker.bindTooltip(tooltip).openTooltip();
 	    });

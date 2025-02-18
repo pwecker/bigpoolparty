@@ -11,7 +11,7 @@
     </li>
     <li class="responsive w-[calc(100vw-1em)] h-[35vh] border-2 border-solid border-zinc-400 rounded-lg relative p-2">
       <div class="absolute bg-white top-[-1em] right-2 flex justify-end pr-2 pl-2 text-zinc-800">
-        {{'responsive : 100vw x 35vh'}}
+        {{'responsive : ~100vw x 35vh'}}
         <div class="ml-1 cursor-pointer" @click="_refresh('responsive')">♻</div>
       </div>
       <iframe :ref="'responsive'" width="100%" height="100%" :src="'/demo/map/index.html'"></iframe>
