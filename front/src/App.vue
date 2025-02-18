@@ -1,5 +1,5 @@
 <template>
-  <div class="h-dvh w-dvw flex items-center justify-center">
+  <div class="overflow-auto h-dvh w-dvw flex items-start justify-center p-8">
     <RouterView />
   </div>
 </template>

@@ -1,21 +1,23 @@
 <template>
-	<!-- <Device></Device>  -->
-	<div class="h-full w-full flex-col flex gap-y-5 justify-center items-center">
-		<div style="cursor:pointer" @click="_click">Tag</div>
-		<iframe width="300" height="250" src="/demo/map/index.html"></iframe>
-	  <iframe width="970" height="250" src="/demo/map/index.html"></iframe>
-  </div>
- 
-  <!-- <div class="h-dvh w-full bg-cyan-100 flex flex-col items-center">
-    <div class="w-full grow-1">
-      <div class="w-full h-[250px] bg-rose-100"></div>
-      <div class="w-full grow-1 flex overflow-y-hidden p-3 gap-3 flex-col sm:flex-row">
-        <div class="h-[3em] grow-1 bg-red-100"></div>
-        <div class="h-[3em] w-[300px] bg-blue-100"></div>
+	<div class="w-full flex-col flex gap-y-5 justify-center items-center">
+    <div @click="_tag" class="fixed top-0 left-[5em] bg-zinc-100 z-1 pr-2 pl-2 rounded-lg m-4 border-1 border-solid cursor-pointer hover:bg-white">Download Tag</div>
+    <ul class="w-[100vw] flex flex-col items-center gap-8 justify-center">
+      <li v-for="[iab] in iabs.map(Object.entries)" :key="iab[0]" :class="iab[0] + ' border-2 border-solid border-zinc-400 rounded-lg relative'">
+      <div class="absolute bg-white top-[-1em] right-2 flex justify-end pr-2 pl-2 text-zinc-800">
+        {{iab[0] + ': ' + iab[1][0] + ' x ' + iab[1][1]}}
+        <div class="ml-1 cursor-pointer" @click="_refresh(iab[0])">♻</div>
       </div>
-    </div>
-    <div class="w-full h-[3em] bg-rose-300"></div>
-  </div> -->
+      <iframe :ref="iab[0]" class="m-2" :width="iab[1][0]" :height="iab[1][1]" :src="'/demo/map/index.html'"></iframe>
+    </li>
+    <li class="responsive w-[calc(100vw-1em)] h-[35vh] border-2 border-solid border-zinc-400 rounded-lg relative p-2">
+      <div class="absolute bg-white top-[-1em] right-2 flex justify-end pr-2 pl-2 text-zinc-800">
+        {{'responsive : 100vw x 35vh'}}
+        <div class="ml-1 cursor-pointer" @click="_refresh('responsive')">♻</div>
+      </div>
+      <iframe :ref="'responsive'" width="100%" height="100%" :src="'/demo/map/index.html'"></iframe>
+    </li>
+    </ul>
+  </div>
 </template>
 <script>
 // import pako from 'pako';
@@ -113,8 +115,22 @@ function dl(str) {
 
 export default {
 	name : 'Page',
+  data() {
+    return {
+      iabs: [
+        {'billboard':['970px','250px']},
+        {'rectangle':['300px','250px']},
+        {'skyscraper':['300px','600px']},
+        // {'responsive':['100%','100%']}
+      ]
+    }
+  },
 	methods: {
-		_click:function() {
+    _refresh: function(name) {
+      const ref = this.$refs[name][0] || this.$refs[name];
+      ref.contentWindow.location.reload();
+    },
+		_tag:function() {
 			const demo = window.document.querySelector('IFRAME');
 			const iframe = demo.contentDocument || demo.contentWindow.document;
 			const dom = iframe.body;
@@ -128,3 +144,10 @@ export default {
 	}
 }
 </script>
+<style scoped>
+@media (max-width: 969px) {
+  .billboard {
+    display: none;
+  }
+}
+</style>
