@@ -1,8 +1,8 @@
 <template>
-	PAGE
+	404
 </template>
 <script>
 export default {
-	name : ''
+	name : '404'
 }
 </script>

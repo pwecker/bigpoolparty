@@ -3,9 +3,14 @@
 </template>
 <script>
 export default {
-	name : ''
+	name : 'Land'
 }
 </script>
 <style scoped>
-  @import "@/components/Land.css"
+	.landing {
+		background-image: url('/img/pool-party.svg');
+		background-size: contain;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
 </style>
