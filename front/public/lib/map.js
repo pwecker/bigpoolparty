@@ -80,7 +80,7 @@ export function extendmap(Creative, params) {
 
 		fitMap() {
 			const bounds = L.latLngBounds(this.markers.map(marker => marker.getLatLng()));
-			this.map.fitBounds(bounds, {padding: [25, 10]})
+			this.map.fitBounds(bounds, {padding: [5, 1]})
 		}
 
 		debounce(fnc, delay) {
